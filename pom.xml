@@ -11,17 +11,21 @@
     </parent>
 
     <groupId>org.th</groupId>
-    <artifactId>pokefight</artifactId>
+    <artifactId>pokefight-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
-    <name>pokefight-parent</name>
+
+    <name>Pokefight Parent</name>
     <description>Homework pokemon fight project</description>
+
     <properties>
         <java.version>21</java.version>
     </properties>
+
     <modules>
         <module>pokefight-app</module>
         <module>pokefight-api</module>
     </modules>
+
+
 </project>
