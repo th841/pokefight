@@ -1,5 +1,7 @@
 package org.th.pokefight.api.dto;
 
-public record PokemonDTO(String name, String type, Integer power) {
+import java.util.List;
+
+public record PokemonDTO(String name, List<String> types, Integer power, String imageUrl) {
 
 }

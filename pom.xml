@@ -21,6 +21,7 @@
     <properties>
         <java.version>21</java.version>
         <argLine />
+        <jakarta.el.version>5.0.0-M1</jakarta.el.version>
     </properties>
 
     <modules>
@@ -29,5 +30,15 @@
         <module>pokefight-core</module>
         <module>pokefight-it</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.el</artifactId>
+                <version>${jakarta.el.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
