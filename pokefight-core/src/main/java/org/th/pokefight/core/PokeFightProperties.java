@@ -7,7 +7,7 @@ import lombok.Data;
 
 @ConfigurationProperties("pokefight")
 @Data
-public final class PokeFightProperties {
+public class PokeFightProperties {
 
     @NotEmpty
     private String pokeApiUrlPrefix;

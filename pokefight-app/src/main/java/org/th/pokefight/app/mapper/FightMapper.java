@@ -17,6 +17,9 @@ public final class FightMapper {
     }
 
     public static List<FightDTO> toDTO(List<Fight> fights) {
+        if (fights == null) {
+            return null;
+        }
         return fights.stream()
                      .map(FightMapper::toDTO)
                      .toList();

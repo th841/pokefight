@@ -15,5 +15,5 @@ public interface FightService {
     List<Fight> getLastFights(@NotNull Integer amount);
 
     @NotNull
-    Fight fight(@NotNull Pokemon pokemon0, @NotNull Pokemon pokemon1);
+    Fight fight(@NotNull List<Pokemon> pokemons);
 }

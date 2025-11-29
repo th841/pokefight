@@ -1,7 +1,9 @@
 package org.th.pokefight.core.service.impl;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -40,35 +42,38 @@ public class FightServiceImpl implements FightService {
     }
 
     @Override
-    public Fight fight(Pokemon pokemon0, Pokemon pokemon1) {
-        log.info("Fight happening: <{},{}> vs <{},{}>", pokemon0.getName(), pokemon0.getPower(), pokemon1.getName(),
-                 pokemon1.getPower());
+    public Fight fight(List<Pokemon> pokemons) {
+        String logMessage = pokemons.stream()
+                                    .map(p -> String.format("<%s,%d>", p.getName(), p.getPower()))
+                                    .collect(Collectors.joining(" vs "));
 
-        Fight fight = doFight(pokemon0, pokemon1);
+        log.info("Fight happening: {}", logMessage);
+
+        Fight fight = doFight(pokemons);
 
         // persist fight data
         fightRepository.save(fight);
 
         // cleanup pokemons after fight
-        pokemonService.removeFromCache(List.of(pokemon0.getName(), pokemon1.getName()));
+        pokemonService.removeFromCache(pokemons.stream()
+                                               .map(Pokemon::getName)
+                                               .toList());
 
         log.info("The winner is: <{}>", fight.getWinner());
         return fight;
     }
 
-    private Fight doFight(Pokemon pokemon0, Pokemon pokemon1) {
+    private Fight doFight(List<Pokemon> pokemons) {
         FightBuilder fightBuilder = Fight.builder()
-                                         .fighters(List.of(pokemon0, pokemon1))
+                                         .fighters(pokemons)
                                          .timestamp(Instant.now());
 
-        if (pokemon0.getPower() > pokemon1.getPower()) {
-            fightBuilder.winner(pokemon0);
-        } else if (pokemon1.getPower() > pokemon0.getPower()) {
-            fightBuilder.winner(pokemon1);
-        }
+        Pokemon winner = pokemons.stream()
+                                 .max(Comparator.comparingInt(Pokemon::getPower))
+                                 .orElse(null);
 
-        Fight fight = fightBuilder.build();
-        return fight;
+        return fightBuilder.winner(winner)
+                           .build();
     }
 
 }

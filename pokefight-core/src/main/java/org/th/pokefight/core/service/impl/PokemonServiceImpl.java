@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.th.pokefight.core.PokeFightConstants;
 import org.th.pokefight.core.PokeFightProperties;
+import org.th.pokefight.core.exception.NoSuchPokemonException;
 import org.th.pokefight.core.model.Pokemon;
 import org.th.pokefight.core.service.PokemonService;
 
@@ -61,6 +62,7 @@ public class PokemonServiceImpl implements PokemonService {
         Pokemon result = restTemplate.getForObject(url, Pokemon.class, nameOrId);
         if (result == null) {
             // cannot be null, exception thrown in restTemplate.getForObject call above
+            throw new NoSuchPokemonException(nameOrId);
         }
         result.setPower(generateRandomPower());
         return result;

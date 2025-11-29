@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.th.pokefight.api.FightWebService;
 import org.th.pokefight.api.dto.FightDTO;
+import org.th.pokefight.api.dto.FightRequestDTO;
 import org.th.pokefight.api.dto.PokemonDTO;
 import org.th.pokefight.app.mapper.FightMapper;
 import org.th.pokefight.app.mapper.PokemonMapper;
@@ -33,10 +34,12 @@ public class FightController implements FightWebService {
     }
 
     @Override
-    public PokemonDTO fight(String name0, String name1) {
-        Pokemon pokemon0 = pokemonService.find(name0);
-        Pokemon pokemon1 = pokemonService.find(name1);
-        Fight fight = fightService.fight(pokemon0, pokemon1);
+    public PokemonDTO fight(FightRequestDTO fightRequest) {
+        List<Pokemon> pokemons = fightRequest.names()
+                                             .stream()
+                                             .map(pokemonService::find)
+                                             .toList();
+        Fight fight = fightService.fight(pokemons);
         return PokemonMapper.toDTO(fight.getWinner());
     }
 

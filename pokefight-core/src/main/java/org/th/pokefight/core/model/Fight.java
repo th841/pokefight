@@ -7,8 +7,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 
 /**
@@ -17,10 +19,12 @@ import lombok.experimental.FieldNameConstants;
  * @author th
  */
 @Data
-@Builder
 @Document(collection = "fights")
 @FieldNameConstants
-public final class Fight {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Fight {
 
     @Id
     private String id;
