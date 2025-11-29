@@ -13,6 +13,7 @@ import org.th.pokefight.core.model.Fight.FightBuilder;
 import org.th.pokefight.core.model.Pokemon;
 import org.th.pokefight.core.repository.FightRepository;
 import org.th.pokefight.core.service.FightService;
+import org.th.pokefight.core.service.PokemonService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +23,12 @@ public class FightServiceImpl implements FightService {
 
     private static final int FIRST_PAGE_INDEX = 0;
     private final FightRepository fightRepository;
+    private final PokemonService pokemonService;
 
     @Autowired
-    public FightServiceImpl(FightRepository fightRepository) {
+    public FightServiceImpl(FightRepository fightRepository, PokemonService pokemonService) {
         this.fightRepository = fightRepository;
+        this.pokemonService = pokemonService;
     }
 
     @Override
@@ -38,9 +41,17 @@ public class FightServiceImpl implements FightService {
 
     @Override
     public Fight fight(Pokemon pokemon0, Pokemon pokemon1) {
-        log.info("Fight happening: pokemon 1: <{}>, pokemon 2:<{}>", pokemon0.getName(), pokemon1.getName());
+        log.info("Fight happening: <{},{}> vs <{},{}>", pokemon0.getName(), pokemon0.getPower(), pokemon1.getName(),
+                 pokemon1.getPower());
+
         Fight fight = doFight(pokemon0, pokemon1);
+
+        // persist fight data
         fightRepository.save(fight);
+
+        // cleanup pokemons after fight
+        pokemonService.removeFromCache(List.of(pokemon0.getName(), pokemon1.getName()));
+
         log.info("The winner is: <{}>", fight.getWinner());
         return fight;
     }
