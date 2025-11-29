@@ -20,12 +20,14 @@
 
     <properties>
         <java.version>21</java.version>
+        <argLine />
     </properties>
 
     <modules>
         <module>pokefight-app</module>
         <module>pokefight-api</module>
+        <module>pokefight-core</module>
+        <module>pokefight-it</module>
     </modules>
-
 
 </project>
