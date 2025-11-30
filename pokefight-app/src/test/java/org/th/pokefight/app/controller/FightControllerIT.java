@@ -1,5 +1,6 @@
 package org.th.pokefight.app.controller;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -13,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.th.pokefight.api.dto.FightDTO;
 import org.th.pokefight.api.dto.FightRequestDTO;
 import org.th.pokefight.api.dto.PokemonDTO;
+import org.th.pokefight.app.controller.FightController;
 import org.th.pokefight.app.mapper.PokemonMapper;
 import org.th.pokefight.core.PokeFightConstants;
 import org.th.pokefight.core.model.Fight;

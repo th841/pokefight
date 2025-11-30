@@ -1,5 +1,6 @@
 package org.th.pokefight.app.controller;
 
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.th.pokefight.api.FightWebService;
 import org.th.pokefight.api.dto.FightRequestDTO;
+import org.th.pokefight.app.controller.FightController;
 import org.th.pokefight.core.PokeFightConstants;
 import org.th.pokefight.core.model.Fight;
 import org.th.pokefight.core.model.Pokemon;

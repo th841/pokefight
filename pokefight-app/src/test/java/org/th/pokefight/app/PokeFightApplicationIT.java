@@ -1,9 +1,11 @@
 package org.th.pokefight.app;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.th.pokefight.app.PokeFightApplication;
 
 @SpringBootTest(classes = PokeFightApplication.class)
 public class PokeFightApplicationIT {
