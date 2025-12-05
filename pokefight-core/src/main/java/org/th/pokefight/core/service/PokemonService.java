@@ -18,6 +18,9 @@ public interface PokemonService {
      */
     @NotNull
     Pokemon getRandomPokemon();
+    
+    @NotNull
+    Pokemon getRandomPokemon(Integer maxPower);
 
     /**
      * Reads pokemon data by given name

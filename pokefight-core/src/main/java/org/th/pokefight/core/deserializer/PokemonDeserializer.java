@@ -19,7 +19,7 @@ public class PokemonDeserializer extends JsonDeserializer<Pokemon> {
     private static final String PROP_NAME = "name";
     private static final String PROP_TYPE = "type";
     private static final String SPRITES = "sprites";
-    private static final String FRONT_DEFAULT = "front_default";
+    private static final String IMAGE_URL = "front_default";
 
     @Override
     public Pokemon deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException {
@@ -37,10 +37,31 @@ public class PokemonDeserializer extends JsonDeserializer<Pokemon> {
     private String readImageUrl(ObjectNode root) {
         if (root.has(SPRITES)) {
             if (root.get(SPRITES)
-                    .has(FRONT_DEFAULT)) {
-                return root.get(SPRITES)
-                           .get(FRONT_DEFAULT)
-                           .asText();
+                    .has(IMAGE_URL)) {
+                String imageUrl = root.get(SPRITES)
+                                      .get(IMAGE_URL)
+                                      .asText();
+                if (root.get(SPRITES)
+                        .has("other")) {
+                    if (root.get(SPRITES)
+                            .get("other")
+                            .has("dream_world")) {
+                        String url = root.get(SPRITES)
+                                         .get("other")
+                                         .get("dream_world")
+                                         .get(IMAGE_URL)
+                                         .asText();
+                        if (url == null || url.isEmpty() || "null".equals(url)) {
+                            return imageUrl;
+                        } else {
+                            return url;
+                        }
+                    } else {
+                        return imageUrl;
+                    }
+                } else {
+                    return imageUrl;
+                }
             }
         }
         return null;
