@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.th.pokefight.api.FightWebService;
 import org.th.pokefight.api.dto.FightDTO;
 import org.th.pokefight.api.dto.FightRequestDTO;
@@ -17,6 +18,7 @@ import org.th.pokefight.core.service.FightService;
 import org.th.pokefight.core.service.PokemonService;
 
 @Controller
+@CrossOrigin(origins = "*")
 public class FightController implements FightWebService {
 
     private final FightService fightService;

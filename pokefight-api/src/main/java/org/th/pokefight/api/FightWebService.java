@@ -7,7 +7,6 @@ import org.th.pokefight.api.dto.FightDTO;
 import org.th.pokefight.api.dto.FightRequestDTO;
 import org.th.pokefight.api.dto.PokemonDTO;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @ResponseBody
 public interface FightWebService {
 

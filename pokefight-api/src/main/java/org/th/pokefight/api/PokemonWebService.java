@@ -2,13 +2,10 @@ package org.th.pokefight.api;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.th.pokefight.api.dto.MaxPowerRequestDTO;
 import org.th.pokefight.api.dto.PokemonDTO;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(PokemonWebService.PATH_POKEMONS)
 @ResponseBody
 public interface PokemonWebService {
@@ -18,4 +15,7 @@ public interface PokemonWebService {
 
     @GetMapping(PATH_RANDOM)
     List<PokemonDTO> getRandomPokemons();
+
+    @PostMapping(PATH_RANDOM)
+    List<PokemonDTO> getRandomPokemons(@RequestBody MaxPowerRequestDTO maxPowerDTO);
 }
